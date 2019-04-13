@@ -1,5 +1,9 @@
 package repetidorIFCEBot;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,6 +14,18 @@ public class RepetidorIFCEBot extends TelegramLongPollingBot {
 
 		// Chegando se a atualizacao (update) tem uma mensagem e se a mensagem tem texto
 		if (update.hasMessage() && update.getMessage().hasText()) {
+
+			JSONObject json;
+			try {
+				json = JsonReader.readJsonFromUrl("https://pokeapi.co/api/v2/pokemon/pikachu");
+			    System.out.println(json.get("weight"));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			// Instancia um objeto SendMessage com os campos que são OBRIGATORIOS
 			SendMessage message = new SendMessage().setChatId(update.getMessage().getChatId())
